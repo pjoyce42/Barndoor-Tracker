@@ -1,13 +1,11 @@
 #include <AccelStepper.h>
 
 // Define the number of steps per revolution for your stepper motor
-const int stepsPerRevolution = 2048;  // 28BYJ-48 has 2048 steps per revolution
+const int stepsPerRevolution = 3200 ;  // NEMA 17 has 200 steps per revolution
 
-// Define the motor control pins
-const int motorPin1 = 8;    // IN1 on ULN2003
-const int motorPin2 = 9;    // IN2 on ULN2003
-const int motorPin3 = 10;   // IN3 on ULN2003
-const int motorPin4 = 11;   // IN4 on ULN2003
+// Define the motor control pins for the A4988 driver
+const int stepPin = 5;    // Step pin on A4988
+const int dirPin = 6;     // Direction pin on A4988
 
 // Define the start/stop button, reverse button, and home switch button
 const int startStopButton = 2;       // Pin for start/stop button
@@ -15,7 +13,7 @@ const int reverseButton = 3;         // Pin for reverse button
 const int homeSwitchButton = 4;      // Pin for home switch button
 
 // Create an AccelStepper object
-AccelStepper stepper(AccelStepper::FULL4WIRE, motorPin1, motorPin3, motorPin2, motorPin4);
+AccelStepper stepper(AccelStepper::DRIVER, stepPin, dirPin);
 
 // Variables
 bool lastButtonState = HIGH;
@@ -36,8 +34,9 @@ bool lastDirection = true;  // true: CW, false: CCW
 
 long lastRevolutionCount = 0;
 
-// Speed control variable (adjust as needed)
-float motorSpeed = 15.0;  // Default speed: 15 RPM
+// Speed control variables (adjust as needed)
+float motorSpeedCW = 15.0;  // Default CW speed: 15 RPM
+float motorSpeedCCW = 40.0; // Default CCW speed: 10 RPM
 
 void setup() {
   // Set up button pins as inputs with pull-up resistors
@@ -46,7 +45,7 @@ void setup() {
   pinMode(homeSwitchButton, INPUT_PULLUP);
 
   // Set up the AccelStepper library
-  stepper.setMaxSpeed(motorSpeed * stepsPerRevolution / 60.0);
+  stepper.setMaxSpeed(motorSpeedCW * stepsPerRevolution / 60.0);  // Set the initial speed to CW speed
   stepper.setAcceleration(500.0);  // Set your desired acceleration in steps per second^2
 
   // Initialize serial communication
@@ -81,8 +80,8 @@ void loop() {
   // Check home switch button
   homeSwitchState = digitalRead(homeSwitchButton);
   if (homeSwitchState == LOW && lastHomeSwitchState == HIGH && millis() - lastHomeSwitchChangeTime > homeSwitchDelay) {
-    // Stop the motor and reset step count to 0 if running in CW direction
-    if (motorRunning && lastDirection) {
+    // Stop the motor and reset step count to 0 if running in CCW direction
+    if (motorRunning && !lastDirection) {
       homingProcedure();
       Serial.println("Home Switch Pressed. Motor stopped, step count reset, and direction set to CCW.");
     }
@@ -112,7 +111,7 @@ void startMotor() {
   Serial.println("Starting motor...");
 
   // Set the motor direction
-  stepper.setSpeed(lastDirection ? motorSpeed : -motorSpeed);  // Set speed based on the motorSpeed variable
+  stepper.setSpeed(lastDirection ? motorSpeedCW : -motorSpeedCCW);  // Set speed based on the motorSpeed variables
   stepper.move(lastDirection ? INFINITY : -INFINITY);  // Continuous rotation in the selected direction
   motorRunning = true;
 }
@@ -129,22 +128,27 @@ void toggleDirection() {
   lastDirection = !lastDirection;
   if (lastDirection) {
     Serial.println("Direction changed to CW");
+    stepper.setMaxSpeed(motorSpeedCW * stepsPerRevolution / 60.0);
   } else {
     Serial.println("Direction changed to CCW");
+    stepper.setMaxSpeed(motorSpeedCCW * stepsPerRevolution / 60.0);
   }
 }
 
 void homingProcedure() {
   Serial.println("Homing Procedure...");
 
+  // Move CW for 1 revolution at the CW speed
+  stepper.setMaxSpeed(15.0 * stepsPerRevolution / 60.0);
+  stepper.move(stepsPerRevolution);  // Move for 1 revolution in the CW direction
+  stepper.runToPosition();  // Wait for the homing procedure to complete
+
   // Reset step count to 0
   stepper.setCurrentPosition(0);
 
-  // Set direction to CCW
-  lastDirection = false;
+  // Set direction to CW
+  lastDirection = true;
 
-  // Move CCW for 1 revolution at 15 RPM
-  stepper.setMaxSpeed(15.0 * stepsPerRevolution / 60.0);  // 15 RPM
-  stepper.move(-stepsPerRevolution);  // Move for 1 revolution in the CCW direction
-  stepper.runToPosition();  // Wait for the homing procedure to complete
+  Serial.print("Current motor at position: ");
+  Serial.println(stepper.currentPosition());
 }
