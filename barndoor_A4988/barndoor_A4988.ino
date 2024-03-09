@@ -35,7 +35,8 @@ bool lastDirection = true;  // true: CW, false: CCW
 long lastRevolutionCount = 0;
 
 // Speed control variables (adjust as needed)
-float motorSpeedCW = 15.0;  // Default CW speed: 15 RPM
+// float motorSpeedCW = 15.0;  // Default CW speed: 15 RPM
+float motorSpeedCW = 1.0;  // Eclipse CW speed: ??? RPM
 float motorSpeedCCW = 40.0; // Default CCW speed: 10 RPM
 
 void setup() {
