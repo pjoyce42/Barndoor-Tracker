@@ -36,8 +36,8 @@ long lastRevolutionCount = 0;
 
 // Speed control variables (adjust as needed)
 // float motorSpeedCW = 15.0;  // Default CW speed: 15 RPM
-float motorSpeedCW = 1.0;  // Eclipse CW speed: ??? RPM
-float motorSpeedCCW = 40.0; // Default CCW speed: 10 RPM
+float motorSpeedCW = 0.562;  // Eclipse CW speed: 0.562 RPM, Camas CW speed: 0.573 RPM
+float motorSpeedCCW = 60.0; // Default CCW speed: 10 RPM
 
 void setup() {
   // Set up button pins as inputs with pull-up resistors
@@ -152,4 +152,5 @@ void homingProcedure() {
 
   Serial.print("Current motor at position: ");
   Serial.println(stepper.currentPosition());
+  stepper.setMaxSpeed(motorSpeedCW * stepsPerRevolution / 60.0);  // reset the speed to CW speed
 }
