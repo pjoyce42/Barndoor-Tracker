@@ -4,8 +4,8 @@
 const int stepsPerRevolution = 3200 ;  // NEMA 17 has 200 steps per revolution
 
 // Define the motor control pins for the A4988 driver
-const int stepPin = 5;    // Step pin on A4988
-const int dirPin = 6;     // Direction pin on A4988
+const int stepPin = 6;    // Step pin on A4988
+const int dirPin = 5;     // Direction pin on A4988
 
 // Define the start/stop button, reverse button, and home switch button
 const int startStopButton = 2;       // Pin for start/stop button
