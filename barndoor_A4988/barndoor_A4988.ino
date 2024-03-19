@@ -8,8 +8,8 @@ const int stepPin = 6;    // Step pin on A4988
 const int dirPin = 5;     // Direction pin on A4988
 
 // Define the start/stop button, reverse button, and home switch button
-const int startStopButton = 2;       // Pin for start/stop button
-const int reverseButton = 3;         // Pin for reverse button
+const int startStopButton = 3;       // Pin for start/stop button
+const int reverseButton = 2;         // Pin for reverse button
 const int homeSwitchButton = 4;      // Pin for home switch button
 
 // Create an AccelStepper object
