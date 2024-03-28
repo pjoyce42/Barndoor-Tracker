@@ -21,7 +21,7 @@ for {set i 0} {$i < [llength $iso_list]} {incr i} {
 
     # Capture 2-shot burst
 	dcc capture
-	echo "Photo $i captured with ISO: $iso, Aperture: $aperture, Shutter Speed: $shutter_speed"
+	#echo "Photo $i captured with ISO: $iso, Aperture: $aperture, Shutter Speed: $shutter_speed"
 }
 
 echo "fin beads"
@@ -30,9 +30,9 @@ echo "start totality"
 	
 
 
-set iso_list {100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	400	400	400	400	400	400	400	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	400	400	400	400	400	400	400	100	100	100	100	100	100	100	100}
-set f_list	{11	11	11	11	11	11	11	11	11	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	22	22	22	22	22	22	22	22	11	11	11	11	11	11	11	11	11	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	22	22	22	22	22	22	22	22}
-set speed_list	{1/1000	1/500	1/125	1/30	1/8	1/2	1	2	8	1/4000	1/2000	1/500	1/125	1/30	1/8	1/4	1/2	2	1/2000	1/500	1/125	1/30	1/15	1/8	1/2	1/250	1/125	1/30	1/8	1/2	2	4	8	1/1000	1/500	1/125	1/30	1/8	1/2	1	2	8	1/4000	1/2000	1/500	1/125	1/30	1/8	1/4	1/2	2	1/2000	1/500	1/125	1/30	1/15	1/8	1/2	1/250	1/125	1/30	1/8	1/2	2	4	8}
+set iso_list {100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	400	400	400	400	400	400	400	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	100	400	400	400	400	400	400	400	100	100	100	100	100	100	100}
+set f_list	{11	11	11	11	11	11	11	11	11	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	22	22	22	22	22	22	22	22	11	11	11	11	11	11	11	11	11	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	5.6	22	22	22	22	22	22	22}
+set speed_list	{1/1000	1/500	1/125	1/30	1/8	1/2	1	2	8	1/4000	1/2000	1/500	1/125	1/30	1/8	1/4	1/2	2	1/2000	1/500	1/125	1/30	1/15	1/8	1/2	1/250	1/125	1/30	1/8	1/2	2	4	8	1/1000	1/500	1/125	1/30	1/8	1/2	1	2	8	1/4000	1/2000	1/500	1/125	1/30	1/8	1/4	1/2	2	1/2000	1/500	1/125	1/30	1/15	1/8	1/2	1/250	1/125	1/30	1/8	1/2	2	4}
 
 
 
@@ -53,7 +53,7 @@ for {set i 0} {$i < [llength $iso_list]} {incr i} {
 
     # Capture 2-shot burst
 	dcc capture
-	echo "Photo $i captured with ISO: $iso, Aperture: $aperture, Shutter Speed: $shutter_speed"
+	#echo "Photo $i captured with ISO: $iso, Aperture: $aperture, Shutter Speed: $shutter_speed"
 }
 
 echo "fin totality"
@@ -81,7 +81,7 @@ for {set i 0} {$i < [llength $iso_list]} {incr i} {
 
     # Capture 2-shot burst
 	dcc capture
-	echo "Photo $i captured with ISO: $iso, Aperture: $aperture, Shutter Speed: $shutter_speed"
+	#echo "Photo $i captured with ISO: $iso, Aperture: $aperture, Shutter Speed: $shutter_speed"
 
 }
 
